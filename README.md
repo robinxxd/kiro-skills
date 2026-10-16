@@ -12,6 +12,7 @@
 | [`ui-design-review`](./ui-design-review) | UI 设计评审：对照需求查覆盖度、逐像素对比设计稿与实现、P0–P3 分级、三层面走查（本能 / 行为 / 反思层）、响应式与状态变体检查。 | UI 评审, 设计走查, 视觉还原 |
 | [`user-story-splitting`](./user-story-splitting) | 把需求 / PRD 拆成可排期的用户故事：角色-目标-价值、故事点数（Fibonacci 相对估算）、可测验收标准、非功能与护栏验收、依赖顺序、FR↔US 覆盖检查。 | 用户故事, story point, 需求拆分 |
 | [`writing-style`](./writing-style) | 中文文案规约：中英混排半角标点加空格、朴素用词、避免 AI 腔、面向同事说话、ISO 日期。写给人看的中文文字都套用。 | 文风, 中文写作, 文案, 标点 |
+| [`dw-model-review`](./dw-model-review) | 数仓模型 / 维度建模评审：表粒度与命名、维度一致性、缓慢变化维（SCD）、指标口径、分区分桶、血缘与复用、空值 / 退化维度处理等。 | 数仓, 维度建模, 数据模型, 评审, 指标口径 |
 
 ## 目录结构
 
@@ -28,7 +29,9 @@ kiro-skills/
 │   └── SKILL.md
 ├── user-story-splitting/
 │   └── SKILL.md
-└── writing-style/
+├── writing-style/
+│   └── SKILL.md
+└── dw-model-review/
     └── SKILL.md
 ```
 
