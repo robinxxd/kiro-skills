@@ -1,8 +1,8 @@
 ---
 name: dw-model-review
-description: 数仓模型设计评审 — 评审 MCCL 盘古调度 + Hive + Spark SQL 的离线数仓设计文档与脚本，覆盖文档完整性、分层与命名、主键与分区、Spark SQL 强制条款、调度依赖、数据质量四校验、安全合规。评审 DWD/DWS/ADS 建表设计文档、Spark SQL 脚本、盘古调度配置时使用。
+description: 数仓模型设计评审 — 评审 MCCL 盘古调度 + Hive + Spark SQL 的离线数仓设计文档与脚本，覆盖文档完整性、分层与命名、主键与分区、Spark SQL 强制条款、调度依赖、数据质量四校验、安全合规。评审 DWD/DWS/DM/ADS 建表设计文档、Spark SQL 脚本、盘古调度配置时使用。
 version: 1.0.0
-keywords: [数仓, 模型设计评审, Spark SQL, 盘古, DWD, DWS, ADS, 离线规范, 设计文档]
+keywords: [数仓, 模型设计评审, Spark SQL, 盘古, DWD, DWS, DM, ADS, 离线规范, 设计文档]
 ---
 
 ## 这个 Skill 做什么
@@ -20,7 +20,7 @@ keywords: [数仓, 模型设计评审, Spark SQL, 盘古, DWD, DWS, ADS, 离线�
 
 ## 何时使用
 
-- 评审 DWD / DWS / ADS 建表设计文档
+- 评审 DWD / DWS / DM / ADS 建表设计文档
 - 评审 Spark SQL 脚本
 - 评审盘古工作流、调度任务配置
 
@@ -61,7 +61,7 @@ keywords: [数仓, 模型设计评审, Spark SQL, 盘古, DWD, DWS, ADS, 离线�
 
 ### 分层
 
-- 库名遵循层级前缀：`ods_` / `dwd_` / `dws_` / `dim` / `ads_` / `dm_` / `dmd_`
+- 库名遵循层级前缀：`ods_` / `dwd_` / `dws_` / `dim` / `dm_` / `ads_` 
 - 一个 L1 主题域一个库
 - 表必须落在本域 schema，不得裸放公共库
 
@@ -146,7 +146,7 @@ keywords: [数仓, 模型设计评审, Spark SQL, 盘古, DWD, DWS, ADS, 离线�
 
 ### 临时表
 
-- 命名 `tmp.目标表名_序号`，**严禁用来源表命名**
+- 命名 `本域 schema.目标表名_序号`，**严禁用来源表命名**
 - 计算中先 `drop` 后 `create`，禁止直接用历史调度日期的临时表
 - 禁止跨节点使用临时表
 - 存储格式 parquet
@@ -235,7 +235,7 @@ keywords: [数仓, 模型设计评审, Spark SQL, 盘古, DWD, DWS, ADS, 离线�
 
 **入仓原则**（关键）：没有分析价值的敏感信息**不入仓**；有分析价值的**只落 ODS**，提取到 ODS 之上**需做加密或脱敏**。
 
-> [!warning] DWD / DWS / ADS 层都要查脱敏
+> [!warning] DWD / DWS / DM / ADS 层都要查脱敏
 > 这三层都在 ODS 之上。看到明文姓名、工号、手机号、身份证号即可判为违规，不是"待确认"。
 
 **规范脱敏方式**：
@@ -295,10 +295,10 @@ keywords: [数仓, 模型设计评审, Spark SQL, 盘古, DWD, DWS, ADS, 离线�
 - [ ] 时间参数用盘古全局参数，无硬编码日期
 - [ ] 关联键类型一致，无隐式转换
 - [ ] 空结果容错、异常值前置过滤已处理
-- [ ] 临时表命名 `tmp.目标表_序号`，未跨节点
+- [ ] 临时表命名 `本域 schema.目标表_序号`，未跨节点
 - [ ] 调度用精准任务依赖，非固定时间
 - [ ] 超时/重试/告警已配置
-- [ ] 分层依赖符合 `ods→dwd→dws→ads`
+- [ ] 分层依赖符合 `ods→dwd→dws→dm→ads`
 - [ ] 数据质量四校验齐全，无模板占位
 - [ ] 安全等级已定且定级合理
 - [ ] 敏感字段已加密/脱敏（DWD 及以上层）
